@@ -1,0 +1,21 @@
+.userList {
+  flex: 5;
+  padding: 10px;
+}
+
+.userTitle {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px;
+  color: #555;
+}
+
+.userListEdit {
+  color: #189AB4;
+  cursor: pointer;
+}
+
+.userListDelete {
+  color: #D2042D;
+  cursor: pointer;
+}

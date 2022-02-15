@@ -1,5 +1,14 @@
 import './sidebar.scss';
-import { LineStyle, Timeline, TrendingUp, AddShoppingCart, ShoppingCartCheckout, PersonAddAlt, Group } from '@mui/icons-material';
+import {
+  LineStyle,
+  Timeline,
+  TrendingUp,
+  AddShoppingCart,
+  ShoppingCartCheckout,
+  PersonAddAlt,
+  Group,
+} from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
   return (
@@ -9,13 +18,19 @@ export default function Sidebar() {
           <h3 className='sidebarTitle'>Dashboard</h3>
           <ul className='sidebarList'>
             <li className='sidebarListItem active'>
-              <LineStyle className='sidebarIcon' /> Home
+              <Link to='/'>
+                <LineStyle className='sidebarIcon' /> Home
+              </Link>
             </li>
             <li className='sidebarListItem'>
-              <Timeline className='sidebarIcon' /> Analytics
+              <Link to='/'>
+                <Timeline className='sidebarIcon' /> Analytics
+              </Link>
             </li>
             <li className='sidebarListItem'>
-              <TrendingUp className='sidebarIcon' /> Sales
+              <Link to='/'>
+                <TrendingUp className='sidebarIcon' /> Sales
+              </Link>
             </li>
           </ul>
         </div>
@@ -23,10 +38,14 @@ export default function Sidebar() {
           <h3 className='sidebarTitle'>Products</h3>
           <ul className='sidebarList'>
             <li className='sidebarListItem'>
-              <AddShoppingCart className='sidebarIcon' /> Add Product
+              <Link to='/'>
+                <AddShoppingCart className='sidebarIcon' /> Add Product
+              </Link>
             </li>
             <li className='sidebarListItem'>
-              <ShoppingCartCheckout className='sidebarIcon' /> List Product
+              <Link to='/'>
+                <ShoppingCartCheckout className='sidebarIcon' /> List Product
+              </Link>
             </li>
           </ul>
         </div>
@@ -34,10 +53,14 @@ export default function Sidebar() {
           <h3 className='sidebarTitle'>User</h3>
           <ul className='sidebarList'>
             <li className='sidebarListItem'>
-              <PersonAddAlt className='sidebarIcon' /> Add User
+              <Link to='/'>
+                <PersonAddAlt className='sidebarIcon' /> Add User
+              </Link>
             </li>
             <li className='sidebarListItem'>
-              <Group className='sidebarIcon' /> List User
+              <Link to='/user-list'>
+                <Group className='sidebarIcon' /> List User
+              </Link>
             </li>
           </ul>
         </div>

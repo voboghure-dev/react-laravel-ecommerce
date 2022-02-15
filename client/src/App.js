@@ -1,4 +1,4 @@
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
 // import AddProduct from './components/product/AddProduct';
@@ -7,24 +7,22 @@ import Topbar from './components/topbar/Topbar';
 // import Register from './components/auth/Register';
 import './app.scss';
 import Home from './pages/home/Home';
+import UserList from './pages/user/UserList';
 function App() {
   return (
-    <div>
+    <BrowserRouter>
       <Topbar />
       <div className='container'>
         <Sidebar />
-        <Home />
-      </div>
-      {/* <BrowserRouter> */}
 
-      {/* <Routes>
-          <Route path='/' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/product-add' element={<AddProduct />} />
-          <Route path='/product-list' element={<ListProduct />} />
-        </Routes> */}
-      {/* </BrowserRouter> */}
-    </div>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/user-list' element={<UserList />} />
+          {/* <Route path='/product-add' element={<AddProduct />} />
+          <Route path='/product-list' element={<ListProduct />} /> */}
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
