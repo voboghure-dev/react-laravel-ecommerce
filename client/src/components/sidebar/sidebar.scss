@@ -1,7 +1,7 @@
 .sidebar {
   flex: 1;
   height: calc(100vh - 50px);
-  background-color: rgb(236, 233, 223);
+  background-color: #189AB4;
   position: sticky;
   top: 50px;
 }
@@ -31,11 +31,13 @@
   display: flex;
   align-items: center;
   border-radius: 10px;
+  color: #D4F1F4;
 }
 
 .sidebarListItem.active,
 .sidebarListItem:hover {
   background-color: aliceblue;
+  color: #189AB4;
 }
 
 .sidebarIcon {
