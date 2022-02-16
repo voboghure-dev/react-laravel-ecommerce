@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Delete, Edit } from '@mui/icons-material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Typography } from '@mui/material';
 
 const rows = [
   { id: 1, name: 'Snow', email: 'Jon', status: 'active' },
@@ -49,7 +50,10 @@ export default function UserList() {
 
   return (
     <div className='userList'>
-      <div className='userTitle'>User List</div>
+      <Typography variant='h6' gutterBottom>
+        User List
+      </Typography>
+
       <DataGrid
         rows={data}
         columns={columns}

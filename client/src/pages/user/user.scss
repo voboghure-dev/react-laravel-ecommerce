@@ -1,3 +1,9 @@
 .user {
   flex: 5;
+  padding: 10px;
+  height: calc(100vh - 160px);
+}
+
+.userEntryForm{
+  max-width: 60%;
 }
