@@ -8,7 +8,7 @@ import {
   PersonAddAlt,
   Group,
 } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function Sidebar() {
   return (
@@ -17,20 +17,20 @@ export default function Sidebar() {
         <div className='sidebarMenu'>
           <h3 className='sidebarTitle'>Dashboard</h3>
           <ul className='sidebarList'>
-            <li className='sidebarListItem active'>
-              <Link to='/'>
+            <li className='sidebarListItem'>
+              <NavLink to='/' className={({isActive}) => isActive ? 'active' : null }>
                 <LineStyle className='sidebarIcon' /> Home
-              </Link>
+              </NavLink>
             </li>
             <li className='sidebarListItem'>
-              <Link to='/'>
+              <NavLink to='/analytics' className={({isActive}) => isActive ? 'active' : null }>
                 <Timeline className='sidebarIcon' /> Analytics
-              </Link>
+              </NavLink>
             </li>
             <li className='sidebarListItem'>
-              <Link to='/'>
+              <NavLink to='/trending' className={({isActive}) => isActive ? 'active' : null }>
                 <TrendingUp className='sidebarIcon' /> Sales
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -38,14 +38,14 @@ export default function Sidebar() {
           <h3 className='sidebarTitle'>Products</h3>
           <ul className='sidebarList'>
             <li className='sidebarListItem'>
-              <Link to='/'>
+              <NavLink to='/product-add' className={({isActive}) => isActive ? 'active' : null }>
                 <AddShoppingCart className='sidebarIcon' /> Add Product
-              </Link>
+              </NavLink>
             </li>
             <li className='sidebarListItem'>
-              <Link to='/'>
+              <NavLink to='/product-list' className={({isActive}) => isActive ? 'active' : null }>
                 <ShoppingCartCheckout className='sidebarIcon' /> List Product
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>
@@ -53,14 +53,14 @@ export default function Sidebar() {
           <h3 className='sidebarTitle'>User</h3>
           <ul className='sidebarList'>
             <li className='sidebarListItem'>
-              <Link to='/'>
+              <NavLink to='/user-add' className={({isActive}) => isActive ? 'active' : null }>
                 <PersonAddAlt className='sidebarIcon' /> Add User
-              </Link>
+              </NavLink>
             </li>
             <li className='sidebarListItem'>
-              <Link to='/user-list'>
+              <NavLink to='/user-list' className={({isActive}) => isActive ? 'active' : null }>
                 <Group className='sidebarIcon' /> List User
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>

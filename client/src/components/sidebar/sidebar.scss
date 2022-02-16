@@ -25,21 +25,10 @@
   padding: 5px;
 }
 
-.sidebarListItem {
-  padding: 5px;
-  cursor: pointer;
-  border-radius: 10px;
-  color: #d4f1f4;
-}
-
-.sidebarListItem.active,
-.sidebarListItem:hover {
+.sidebarListItem a:hover {
   background-color: aliceblue;
   color: #189ab4;
-}
-.sidebarListItem.active a,
-.sidebarListItem a:hover {
-  color: #189ab4;
+  border-radius: 10px;
 }
 
 .sidebarListItem a {
@@ -47,6 +36,13 @@
   color: #d4f1f4;
   display: flex;
   align-items: center;
+  padding: 5px;
+}
+
+.sidebarListItem a.active {
+  background-color: aliceblue;
+  color: #189ab4;
+  border-radius: 10px;
 }
 
 .sidebarIcon {

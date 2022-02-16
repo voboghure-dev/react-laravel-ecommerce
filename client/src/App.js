@@ -8,6 +8,7 @@ import Topbar from './components/topbar/Topbar';
 import './app.scss';
 import Home from './pages/home/Home';
 import UserList from './pages/user/UserList';
+import User from './pages/user/User';
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/user-list' element={<UserList />} />
+          <Route path='/user/:userId' element={<User />} />
           {/* <Route path='/product-add' element={<AddProduct />} />
           <Route path='/product-list' element={<ListProduct />} /> */}
         </Routes>
