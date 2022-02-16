@@ -1,26 +1,8 @@
 import './userList.scss';
 import { DataGrid } from '@mui/x-data-grid';
 import { Delete, Edit } from '@mui/icons-material';
-
-const columns = [
-  { field: 'id', headerName: 'ID', width: 90 },
-  { field: 'name', headerName: 'Full Name', width: 200 },
-  { field: 'email', headerName: 'Email', width: 200 },
-  { field: 'status', headerName: 'Status', width: 120 },
-  {
-    field: 'action',
-    headerName: 'Action',
-    width: 150,
-    renderCell: (params) => {
-      return (
-        <>
-          <Edit className='userListEdit' />
-          <Delete className='userListDelete' />
-        </>
-      );
-    },
-  },
-];
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const rows = [
   { id: 1, name: 'Snow', email: 'Jon', status: 'active' },
@@ -35,11 +17,41 @@ const rows = [
 ];
 
 export default function UserList() {
+  const [data, setData] = useState(rows);
+
+  const handleDelete = (id) => {
+    setData(data.filter((item) => item.id !== id));
+  };
+  const columns = [
+    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'name', headerName: 'Full Name', width: 200 },
+    { field: 'email', headerName: 'Email', width: 200 },
+    { field: 'status', headerName: 'Status', width: 120 },
+    {
+      field: 'action',
+      headerName: 'Action',
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <>
+            <Link to={'/user/' + params.row.id}>
+              <Edit className='userListEdit' />
+            </Link>
+            <Delete
+              className='userListDelete'
+              onClick={() => handleDelete(params.row.id)}
+            />
+          </>
+        );
+      },
+    },
+  ];
+
   return (
     <div className='userList'>
       <div className='userTitle'>User List</div>
       <DataGrid
-        rows={rows}
+        rows={data}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}

@@ -1,6 +1,7 @@
 .userList {
   flex: 5;
   padding: 10px;
+  height: calc(100vh - 160px);
 }
 
 .userTitle {
@@ -11,11 +12,11 @@
 }
 
 .userListEdit {
-  color: #189AB4;
+  color: #189ab4;
   cursor: pointer;
 }
 
 .userListDelete {
-  color: #D2042D;
+  color: #d2042d;
   cursor: pointer;
 }
