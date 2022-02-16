@@ -45,7 +45,6 @@ export default function User() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(values);
     const result = await fetch('http://127.0.0.1:8000/api/register', {
       method: 'POST',
       headers: {
@@ -59,7 +58,7 @@ export default function User() {
       ? setMessage('New user created.')
       : setError('Having issues with user create.');
 
-    // setValues(initialFieldValues);
+    setValues(initialFieldValues);
   };
 
   return (
