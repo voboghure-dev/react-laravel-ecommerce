@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    //
     function register(Request $req)
     {
         $user = new User;
@@ -16,6 +15,7 @@ class UserController extends Controller
         $user->email = $req->input('email');
         $user->password = Hash::make($req->input('password'));
         $user->status = $req->input('status');
+
         if ($user->save()) {
             return response()->json([
                 'success' => 'success'
@@ -25,5 +25,13 @@ class UserController extends Controller
                 'error' => 'error'
             ], 401);
         }
+    }
+
+    function get_all()
+    {
+        $user = new User;
+        $users = User::all();
+
+        return $users;
     }
 }
