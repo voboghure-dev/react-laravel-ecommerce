@@ -55,8 +55,8 @@ export default function User() {
     });
 
     result.status == 200
-      ? setMessage('New user created.')
-      : setError('Having issues with user create.');
+      ? setMessage('User created.')
+      : setError('Unable to create user.');
 
     setValues(initialFieldValues);
   };
@@ -66,6 +66,7 @@ export default function User() {
       {error && (
         <Collapse in={open}>
           <Alert
+            severity='error'
             action={
               <IconButton
                 aria-label='close'
@@ -87,6 +88,7 @@ export default function User() {
       {message && (
         <Collapse in={open}>
           <Alert
+            severity='success'
             action={
               <IconButton
                 aria-label='close'
