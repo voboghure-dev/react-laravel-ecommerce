@@ -27,11 +27,8 @@ class UserController extends Controller
         }
     }
 
-    function get_all()
+    function list()
     {
-        $user = new User;
-        $users = User::all();
-
-        return $users;
+        return User::all();
     }
 }
