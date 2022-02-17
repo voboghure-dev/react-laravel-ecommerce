@@ -83,8 +83,6 @@ export default function UserList() {
   };
 
   // User update
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [values, setValues] = useState({});
   const initialFieldValues = {
     fullName: '',
     email: '',
@@ -92,11 +90,21 @@ export default function UserList() {
     confirmPassword: '',
     status: '',
   };
-  const handleInputChange = () => {}
+  const [values, setValues] = useState(initialFieldValues);
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
   const handleCheckboxChange = () => {}
   const handleFormSubmit = () => {}
   const handleDialogOpen = (id) => {
-    console.log(id);
+    // console.log(id);
     setDialogOpen(true);
   };
   const handleDialogClose = () => {

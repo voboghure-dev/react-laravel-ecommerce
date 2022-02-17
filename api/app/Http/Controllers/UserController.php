@@ -45,4 +45,18 @@ class UserController extends Controller
             ], 401);
         }
     }
+
+    function getUser($id)
+    {
+        $result = User::find($id);
+        if ($result) {
+            return response()->json([
+                'success' => 'success'
+            ], 200);
+        } else {
+            return response()->json([
+                'error' => 'error'
+            ], 401);
+        }
+    }
 }
