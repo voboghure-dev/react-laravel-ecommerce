@@ -2,7 +2,6 @@ import './userList.scss';
 import { DataGrid } from '@mui/x-data-grid';
 import { Delete, Edit } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Alert,
   Button,
@@ -21,10 +20,20 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function UserList() {
-  // User list
-  const [data, setData] = useState([]);
+  const [rows, setRows] = useState([]);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+
+  const [userId, setUserId] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [status, setStatus] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const [alertOpen, setAlertOpen] = useState(true);
+
   const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
     { field: 'full_name', headerName: 'Full Name', width: 200 },
@@ -37,12 +46,10 @@ export default function UserList() {
       renderCell: (params) => {
         return (
           <>
-            {/* <Link to={'/user/' + params.row.id}> */}
             <Edit
               className='userListEdit'
               onClick={() => handleDialogOpen(params.row.id)}
             />
-            {/* </Link> */}
             <Delete
               className='userListDelete'
               onClick={() => handleDelete(params.row.id)}
@@ -52,19 +59,21 @@ export default function UserList() {
       },
     },
   ];
+
+  // User list load
   useEffect(() => {
     async function fetchData() {
-      const result = await fetch('http://127.0.0.1:8000/api/list');
+      const result = await fetch('http://127.0.0.1:8000/api/user/list');
       let data = await result.json();
-      setData(data);
+      setRows(data);
+      console.log(dialogOpen);
     }
     fetchData();
-  }, []);
+  }, [dialogOpen]);
 
   // User delete
-  const [alertOpen, setAlertOpen] = useState(true);
   const handleDelete = async (id) => {
-    const result = await fetch('http://127.0.0.1:8000/api/delete/' + id, {
+    const result = await fetch('http://127.0.0.1:8000/api/user/delete/' + id, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -78,54 +87,44 @@ export default function UserList() {
 
     setTimeout(() => {
       // is a fix for "Uncaught Error: No row with id #9 found"
-      setData(data.filter((item) => item.id !== id));
+      setRows(rows.filter((item) => item.id !== id));
     });
   };
 
   // User update
-  const initialFieldValues = {
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    status: '',
-  };
-  const [values, setValues] = useState(initialFieldValues);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
-  const handleCheckboxChange = (e) => {
-    const { name } = e.target;
-    const value = e.target.checked ? 'active' : 'inactive';
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const result = await fetch('http://127.0.0.1:8000/api/register', {
+    let data = {userId, fullName, email, password, status};
+    const result = await fetch('http://127.0.0.1:8000/api/user/update', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
-      body: JSON.stringify(values),
+
+      body: JSON.stringify(data),
     });
 
     result.status == 200
       ? setMessage('User updated.')
       : setError('Unable to update user.');
+
+    setDialogOpen(false);
   };
+
   const handleDialogOpen = (id) => {
-    // console.log(id);
+    async function fetchData() {
+      const result = await fetch('http://127.0.0.1:8000/api/user/' + id);
+      let data = await result.json();
+      setFullName(data.user.full_name);
+      setEmail(data.user.email);
+      setStatus(data.user.status == 'active' ? true : false);
+    }
+    fetchData();
     setDialogOpen(true);
+    setUserId(id);
   };
+
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
@@ -181,10 +180,10 @@ export default function UserList() {
       </Typography>
 
       <DataGrid
-        rows={data}
+        rows={rows}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
         checkboxSelection
         disableSelectionOnClick
       />
@@ -201,10 +200,9 @@ export default function UserList() {
                   name='fullName'
                   label='Full Name'
                   fullWidth
-                  autoComplete='off'
                   variant='standard'
-                  value={values.fullName}
-                  onChange={handleInputChange}
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -214,10 +212,9 @@ export default function UserList() {
                   name='email'
                   label='Email address'
                   fullWidth
-                  autoComplete='off'
                   variant='standard'
-                  value={values.email}
-                  onChange={handleInputChange}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -228,10 +225,9 @@ export default function UserList() {
                   label='Password'
                   type='password'
                   fullWidth
-                  autoComplete='off'
                   variant='standard'
-                  value={values.password}
-                  onChange={handleInputChange}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -242,10 +238,9 @@ export default function UserList() {
                   label='Confirm Password'
                   type='password'
                   fullWidth
-                  autoComplete='off'
                   variant='standard'
-                  value={values.confirmPassword}
-                  onChange={handleInputChange}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -254,8 +249,11 @@ export default function UserList() {
                     <Checkbox
                       color='secondary'
                       name='status'
-                      value={values.status}
-                      onChange={handleCheckboxChange}
+                      checked={status}
+                      value={status}
+                      onChange={(e) =>
+                        setStatus(e.target.checked ? true : false)
+                      }
                     />
                   }
                   label='Active'

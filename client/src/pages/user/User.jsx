@@ -45,7 +45,7 @@ export default function User() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const result = await fetch('http://127.0.0.1:8000/api/register', {
+    const result = await fetch('http://127.0.0.1:8000/api/user/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
