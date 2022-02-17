@@ -91,9 +91,7 @@ export default function UserList() {
     status: '',
   };
   const [values, setValues] = useState(initialFieldValues);
-
   const [dialogOpen, setDialogOpen] = useState(false);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({
@@ -101,8 +99,29 @@ export default function UserList() {
       [name]: value,
     });
   };
-  const handleCheckboxChange = () => {}
-  const handleFormSubmit = () => {}
+  const handleCheckboxChange = (e) => {
+    const { name } = e.target;
+    const value = e.target.checked ? 'active' : 'inactive';
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const result = await fetch('http://127.0.0.1:8000/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify(values),
+    });
+
+    result.status == 200
+      ? setMessage('User updated.')
+      : setError('Unable to update user.');
+  };
   const handleDialogOpen = (id) => {
     // console.log(id);
     setDialogOpen(true);
