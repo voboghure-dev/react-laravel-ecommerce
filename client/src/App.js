@@ -21,8 +21,6 @@ function App() {
           <Route path='/user-list' element={<UserList />} />
           <Route path='/user-add' element={<User />} />
           <Route path='/user/:userId' element={<User />} />
-          {/* <Route path='/product-add' element={<AddProduct />} />
-          <Route path='/product-list' element={<ListProduct />} /> */}
         </Routes>
       </div>
     </BrowserRouter>
