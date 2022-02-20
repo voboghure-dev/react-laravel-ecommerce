@@ -1,4 +1,4 @@
-import './user.scss';
+import { useState } from 'react';
 import {
   Typography,
   Grid,
@@ -11,7 +11,8 @@ import {
   Collapse,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
+
+import './user.scss';
 
 export default function User() {
   const initialFieldValues = {
@@ -54,7 +55,7 @@ export default function User() {
       body: JSON.stringify(values),
     });
 
-    result.status == 200
+    result.status === 200
       ? setMessage('User created.')
       : setError('Unable to create user.');
 

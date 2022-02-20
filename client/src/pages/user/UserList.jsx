@@ -81,7 +81,7 @@ export default function UserList() {
       },
     });
 
-    result.status == 200
+    result.status === 200
       ? setMessage('User deleted.')
       : setError('Unable to delete user.');
 
@@ -105,7 +105,7 @@ export default function UserList() {
       body: JSON.stringify(data),
     });
 
-    result.status == 200
+    result.status === 200
       ? setMessage('User updated.')
       : setError('Unable to update user.');
 
@@ -118,7 +118,7 @@ export default function UserList() {
       let data = await result.json();
       setFullName(data.user.full_name);
       setEmail(data.user.email);
-      setStatus(data.user.status == 'active' ? true : false);
+      setStatus(data.user.status === 'active' ? true : false);
     }
     fetchData();
     setDialogOpen(true);

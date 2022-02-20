@@ -1,58 +1,112 @@
-import { Link } from 'react-router-dom';
-import './login.scss';
+import * as React from 'react';
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-export default function Login() {
+function Copyright(props) {
   return (
-    <div className='container'>
-      <div className='row'>
-        <div className='col-md-6 offset-md-3'>
-          <h2 className='text-center text-dark mt-5'>Login Form</h2>
-          <div className='text-center mb-5 text-dark'>Made with bootstrap</div>
-          <div className='card my-5'>
-            <form className='card-body cardbody-color p-lg-5'>
-              <div className='text-center'>
-                <img
-                  src='https://cdn.pixabay.com/photo/2016/03/31/19/56/avatar-1295397__340.png'
-                  className='img-fluid profile-image-pic img-thumbnail rounded-circle my-3'
-                  width='200px'
-                  alt='profile'
-                />
-              </div>
+    <Typography
+      variant='body2'
+      color='text.secondary'
+      align='center'
+      {...props}
+    >
+      {'Copyright © '}
+      <Link color='inherit' href='https://mui.com/'>
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
-              <div className='mb-3'>
-                <input
-                  type='text'
-                  className='form-control'
-                  id='Username'
-                  aria-describedby='emailHelp'
-                  placeholder='User Name'
-                />
-              </div>
-              <div className='mb-3'>
-                <input
-                  type='password'
-                  className='form-control'
-                  id='password'
-                  placeholder='password'
-                />
-              </div>
-              <div className='text-center'>
-                <button type='submit' className='btn btn-color px-5 mb-5 w-100'>
-                  Login
-                </button>
-              </div>
-              <div
-                id='emailHelp'
-                className='form-text text-center mb-5 text-dark'
-              >
-                Not Registered? {' '}
+export default function SignIn() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
 
-                <Link to='/register' className='text-dark fw-bold'>Create an Account</Link>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+  return (
+    <Container component='main' maxWidth='xs'>
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component='h1' variant='h5'>
+          Sign in
+        </Typography>
+        <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin='normal'
+            required
+            fullWidth
+            id='email'
+            label='Email Address'
+            name='email'
+            autoComplete='email'
+            autoFocus
+          />
+          <TextField
+            margin='normal'
+            required
+            fullWidth
+            name='password'
+            label='Password'
+            type='password'
+            id='password'
+            autoComplete='current-password'
+          />
+          <FormControlLabel
+            control={<Checkbox value='remember' color='primary' />}
+            label='Remember me'
+          />
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link href='#' variant='body2'>
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href='#' variant='body2'>
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+      <Copyright sx={{ mt: 8, mb: 4 }} />
+    </Container>
   );
 }

@@ -1,6 +1,6 @@
 # Ecommerce with Laravel and React
 
-An e-commerce starter package build with ReactJS (as client) and Laravel (as API)
+An e-commerce starter package built with ReactJS (as client) and Laravel (as API)
 
 ## What ReactJS use
 

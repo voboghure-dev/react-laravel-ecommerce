@@ -1,9 +1,9 @@
 import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo';
-import './home.scss';
+import './dashboard.scss';
 
-export default function Home() {
+export default function Dashboard() {
   return (
-    <div className='home'>
+    <div className='dashboard'>
       <FeaturedInfo />
     </div>
   );
