@@ -5,9 +5,7 @@ import Topbar from './topbar/Topbar';
 
 export default function PrivateOutlet() {
   const auth = useAuth();
-
-  console.log('hello');
-
+  console.log(auth);
   return auth.user ? (
     <>
       <Topbar />

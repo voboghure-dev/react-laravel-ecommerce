@@ -8,19 +8,22 @@ import User from './pages/user/User';
 import PrivateOutlet from './components/PrivateOutlet';
 
 import './app.scss';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/*' element={<PrivateOutlet />}>
-          <Route path='dashboard' element={<Dashboard />} />
-          <Route path='user-list' element={<UserList />} />
-          <Route path='user-add' element={<User />} />
-          <Route path='user/:userId' element={<User />} />
-        </Route>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path='/login' element={<Login />} />
+          <Route path='/*' element={<PrivateOutlet />}>
+            <Route path='dashboard' element={<Dashboard />} />
+            <Route path='user-list' element={<UserList />} />
+            <Route path='user-add' element={<User />} />
+            <Route path='user/:userId' element={<User />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
