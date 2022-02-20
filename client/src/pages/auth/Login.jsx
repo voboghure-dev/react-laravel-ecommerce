@@ -6,13 +6,14 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
+  Link as MUILink,
   Grid,
   Box,
   Typography,
   Container,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Link as RouterLink } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -23,9 +24,9 @@ function Copyright(props) {
       {...props}
     >
       {'Copyright © '}
-      <Link color='inherit' href='https://mui.com/'>
+      <MUILink color='inherit' component={RouterLink} to='https://mui.com/'>
         Your Website
-      </Link>{' '}
+      </MUILink>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -94,14 +95,14 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href='#' variant='body2'>
+              <MUILink component={RouterLink} to='/forgot-password' variant='body2'>
                 Forgot password?
-              </Link>
+              </MUILink>
             </Grid>
             <Grid item>
-              <Link href='#' variant='body2'>
+              <MUILink component={RouterLink} to='/register' variant='body2'>
                 {"Don't have an account? Sign Up"}
-              </Link>
+              </MUILink>
             </Grid>
           </Grid>
         </Box>
