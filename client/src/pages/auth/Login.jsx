@@ -1,18 +1,24 @@
-import { Link as RouterLink } from 'react-router-dom';
+import { useState } from 'react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
+  Alert,
   Avatar,
   Button,
   CssBaseline,
+  Collapse,
   TextField,
   FormControlLabel,
   Checkbox,
   Link as MUILink,
   Grid,
   Box,
+  IconButton,
   Typography,
   Container,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import CloseIcon from '@mui/icons-material/Close';
+import { useAuth } from '../../contexts/AuthContext';
 
 function Copyright(props) {
   return (
@@ -33,31 +39,23 @@ function Copyright(props) {
 }
 
 export default function Login() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [alertOpen, setAlertOpen] = useState(true);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const result = await fetch('http://127.0.0.1:8000/api/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify(values),
-    });
-
-    result.status === 200
-      ? setMessage('User created.')
-      : setError('Unable to create user.');
-
-    setValues(initialFieldValues);
+    let result = await login(email, password);
+    if (result.status === 200) {
+      setMessage('Login successfully.');
+      navigate('/dashboard');
+    } else {
+      setError('Invalid user details.');
+    }
   };
 
   return (
@@ -74,10 +72,32 @@ export default function Login() {
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
+        {error && (
+          <Collapse in={alertOpen}>
+            <Alert
+              severity='error'
+              action={
+                <IconButton
+                  aria-label='close'
+                  color='inherit'
+                  size='small'
+                  onClick={() => {
+                    setAlertOpen(false);
+                  }}
+                >
+                  <CloseIcon fontSize='inherit' />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              {error}
+            </Alert>
+          </Collapse>
+        )}
         <Typography component='h1' variant='h5'>
           Sign in
         </Typography>
-        <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box noValidate sx={{ mt: 1 }}>
           <form autoComplete='off' className='userLoginForm'>
             <TextField
               margin='normal'
@@ -87,6 +107,7 @@ export default function Login() {
               label='Email Address'
               name='email'
               autoFocus
+              onChange={(e) => setEmail(e.target.value)}
             />
             <TextField
               margin='normal'
@@ -96,6 +117,7 @@ export default function Login() {
               label='Password'
               type='password'
               id='password'
+              onChange={(e) => setPassword(e.target.value)}
             />
             <FormControlLabel
               control={<Checkbox value='remember' color='primary' />}
