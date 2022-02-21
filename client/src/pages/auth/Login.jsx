@@ -42,6 +42,24 @@ export default function Login() {
     });
   };
 
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const result = await fetch('http://127.0.0.1:8000/api/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify(values),
+    });
+
+    result.status === 200
+      ? setMessage('User created.')
+      : setError('Unable to create user.');
+
+    setValues(initialFieldValues);
+  };
+
   return (
     <Container component='main' maxWidth='xs'>
       <CssBaseline />
@@ -60,41 +78,46 @@ export default function Login() {
           Sign in
         </Typography>
         <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <TextField
-            margin='normal'
-            required
-            fullWidth
-            id='email'
-            label='Email Address'
-            name='email'
-            autoComplete='email'
-            autoFocus
-          />
-          <TextField
-            margin='normal'
-            required
-            fullWidth
-            name='password'
-            label='Password'
-            type='password'
-            id='password'
-            autoComplete='current-password'
-          />
-          <FormControlLabel
-            control={<Checkbox value='remember' color='primary' />}
-            label='Remember me'
-          />
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
+          <form autoComplete='off' className='userLoginForm'>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              id='email'
+              label='Email Address'
+              name='email'
+              autoFocus
+            />
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='password'
+              label='Password'
+              type='password'
+              id='password'
+            />
+            <FormControlLabel
+              control={<Checkbox value='remember' color='primary' />}
+              label='Remember me'
+            />
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}
+              onClick={handleFormSubmit}
+            >
+              Sign In
+            </Button>
+          </form>
           <Grid container>
             <Grid item xs>
-              <MUILink component={RouterLink} to='/forgot-password' variant='body2'>
+              <MUILink
+                component={RouterLink}
+                to='/forgot-password'
+                variant='body2'
+              >
                 Forgot password?
               </MUILink>
             </Grid>

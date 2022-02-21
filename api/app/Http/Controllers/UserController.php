@@ -80,4 +80,22 @@ class UserController extends Controller {
             ], 401 );
         }
     }
+
+    function get_by_email_password( Request $req ) {
+        $user = User::where( 'email', '=', $req->input( 'email' ) )->first();
+        if ( ! $user ) {
+            return response()->json( [
+                'error' => 'error',
+            ], 401 );
+        }
+        if ( ! Hash::check( $req->input( 'password' ), $user->password ) ) {
+            return response()->json( [
+                'error' => 'error',
+            ], 401 );
+        } else {
+            return response()->json( [
+                'user' => $user,
+            ], 200 );
+        }
+    }
 }

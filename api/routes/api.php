@@ -24,3 +24,4 @@ Route::get('user/list', [UserController::class, 'list']);
 Route::delete('user/delete/{id}', [UserController::class, 'delete']);
 Route::get('user/{id}', [UserController::class, 'get']);
 Route::post('user/update', [UserController::class, 'update']);
+Route::post('user/login', [UserController::class, 'get_by_email_password']);
