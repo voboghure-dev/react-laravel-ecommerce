@@ -14,18 +14,19 @@ export function AuthProvider({ children }) {
   };
 
   async function login(email, password) {
-    let data = {email, password};
+    let data = { email, password };
     const result = await fetch('http://127.0.0.1:8000/api/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify(data),
     });
-    console.log(result);
+    const user = await result.json();
     if (result.status === 200) {
-      setUser(result.user)
+      setUser(user);
     }
 
     return result;

@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    # Accept CORS
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
