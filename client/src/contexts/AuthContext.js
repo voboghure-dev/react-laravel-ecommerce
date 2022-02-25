@@ -8,10 +8,6 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const userInfo = {
-    name: 'Tapan',
-    email: 'tapan@tapan.com',
-  };
 
   async function login(email, password) {
     let data = { email, password };
@@ -19,7 +15,7 @@ export function AuthProvider({ children }) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify(data),
@@ -27,13 +23,22 @@ export function AuthProvider({ children }) {
     const user = await result.json();
     if (result.status === 200) {
       setUser(user);
+      // store the user in localStorage
+      localStorage.setItem('user', JSON.stringify(user));
+      // console.log(user);
     }
 
     return result;
   }
 
+  function setLogin(user) {
+    console.log(user);
+    setUser(user);
+  }
+
   const value = {
     user,
+    setLogin,
     login,
   };
 
