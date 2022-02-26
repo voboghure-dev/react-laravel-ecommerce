@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
 
@@ -7,7 +7,7 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
   async function login(email, password) {
     let data = { email, password };
@@ -22,23 +22,16 @@ export function AuthProvider({ children }) {
     });
     const user = await result.json();
     if (result.status === 200) {
-      setUser(user);
-      // store the user in localStorage
+      // setUser(user);
       localStorage.setItem('user', JSON.stringify(user));
-      // console.log(user);
     }
 
     return result;
   }
 
-  function setLogin(user) {
-    console.log(user);
-    setUser(user);
-  }
-
   const value = {
-    user,
-    setLogin,
+    // user,
+    // setUser,
     login,
   };
 
