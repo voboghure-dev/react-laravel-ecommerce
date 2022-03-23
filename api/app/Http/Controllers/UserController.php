@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller {
+
   function create( Request $req ) {
     $user           = new User;
     $user->name     = $req->input( 'name' );
